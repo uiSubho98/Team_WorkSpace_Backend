@@ -60,7 +60,6 @@ export const loginController = asyncHandler(
             return next(err);
           }
 
-
           return res.status(HTTPSTATUS.OK).json({
             message: "Logged in successfully",
             user,

@@ -29,13 +29,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    name: "session", // Cookie name will be "session" (not "connect.sid")
+    name: "session",
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
     secure: config.NODE_ENV === "production",
     httpOnly: true,
-    sameSite: config.NODE_ENV === "production" ? "none" : "lax",
-    domain: config.NODE_ENV === "production" ? ".onrender.com" : undefined,
+    sameSite: "lax",
   })
 );
 
@@ -44,10 +43,8 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: "https://workspace.devifai.com",
+    origin: "http://localhost:5173",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
