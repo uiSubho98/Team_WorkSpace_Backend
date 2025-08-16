@@ -43,10 +43,10 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      callback(null, origin || true); // Allow any origin
-    },
+    origin: "https://workspace.devifai.com",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

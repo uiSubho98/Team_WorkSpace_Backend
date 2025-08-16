@@ -63,8 +63,9 @@ export const loginController = asyncHandler(
           // Explicitly set the session cookie
           res.cookie("connect.sid", (req as any).sessionID, {
             secure: true, // Required for HTTPS
-            httpOnly: true,
+            httpOnly: true, // Prevent JavaScript access
             sameSite: "none", // Required for cross-domain
+            domain: ".onrender.com", // Match your backend domain
             maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
           });
 
