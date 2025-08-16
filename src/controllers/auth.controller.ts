@@ -60,6 +60,14 @@ export const loginController = asyncHandler(
             return next(err);
           }
 
+          // Explicitly set the session cookie
+          res.cookie("connect.sid", (req as any).sessionID, {
+            secure: true, // Required for HTTPS
+            httpOnly: true,
+            sameSite: "none", // Required for cross-domain
+            maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
+          });
+
           return res.status(HTTPSTATUS.OK).json({
             message: "Logged in successfully",
             user,
