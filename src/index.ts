@@ -43,10 +43,10 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: "*", // Allow all origins
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Allow all HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
-    credentials: true, // If you want to allow cookies, set to true
+    origin: (origin, callback) => {
+      callback(null, origin || true); // Allow any origin
+    },
+    credentials: true,
   })
 );
 
