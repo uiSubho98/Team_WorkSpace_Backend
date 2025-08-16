@@ -29,12 +29,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    name: "session",
+    name: "session", // Cookie name will be "session" (not "connect.sid")
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-    secure: config.NODE_ENV === "development",
+    secure: config.NODE_ENV === "production",
     httpOnly: true,
-    sameSite: "none",
+    sameSite: config.NODE_ENV === "production" ? "none" : "lax",
+    domain: config.NODE_ENV === "production" ? ".onrender.com" : undefined,
   })
 );
 
