@@ -41,17 +41,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-const allowedOrigins = [
-  "http://localhost:3000", // local frontend
-  "https://workspace.devifai.com/", // deployed frontend
-];
-
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // server-to-server or Postman
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
+      callback(null, origin || true); // Allow any origin
     },
     credentials: true,
   })
@@ -71,7 +64,7 @@ app.get(
 );
 
 app.use(`${BASE_PATH}/auth`, authRoutes);
-app.use(`${BASE_PATH}/user`, userRoutes);
+app.use(`${BASE_PATH}/user`,  userRoutes);
 app.use(`${BASE_PATH}/workspace`, isAuthenticated, workspaceRoutes);
 app.use(`${BASE_PATH}/member`, isAuthenticated, memberRoutes);
 app.use(`${BASE_PATH}/project`, isAuthenticated, projectRoutes);
