@@ -32,9 +32,9 @@ app.use(
     name: "session",
     keys: [config.SESSION_SECRET],
     maxAge: 24 * 60 * 60 * 1000,
-    secure: config.NODE_ENV === "production",
+    secure: true, // MUST be true for HTTPS in production
+    sameSite: "none", // important for cross-site cookies
     httpOnly: true,
-    sameSite: "lax",
   })
 );
 
@@ -43,7 +43,7 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://workspace.devifai.com",
     credentials: true,
   })
 );
